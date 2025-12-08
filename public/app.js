@@ -67,10 +67,10 @@ function transformData(fredData) {
 
 function renderChart(dates, values) {
     const seriesNames = [
-        "Currency in Circulation",
+        "Currency",
         "Demand Deposits",
         "Liquid Deposits",
-        "US Gov Deposits",
+        "U.S. Gov. Deposits",
         "Foreign Deposits"
     ];
     
@@ -118,10 +118,16 @@ function renderChart(dates, values) {
             }
         },
         title: {
-            text: "True Money Supply Components"
+            text: null
         },
         subtitle: {
-            text: "Click and drag to zoom in"
+            text: "click and drag to zoom"
+        },
+        legend: {
+            enabled: true,
+            align: "center",
+            verticalAlign: "top",
+            layout: "horizontal"
         },
         rangeSelector: {
             enabled: false
