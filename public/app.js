@@ -1,9 +1,18 @@
+const SERIES_CONFIG = {
+    CURRNS:   { convertFromMillions: false },
+    DEMDEPNS: { convertFromMillions: false },
+    MDLM:     { convertFromMillions: false },
+    SAVINGNS: { convertFromMillions: false },
+    OCDNS:    { convertFromMillions: false },
+    WTREGEN:  { convertFromMillions: true },
+    D2WLFOL:  { convertFromMillions: true }
+};
+
+const SERIES_IDS = Object.keys(SERIES_CONFIG);
+
 async function fetchData() {
-
-    const series_ids = ["CURRNS", "DEMDEPNS", "MDLM", "SAVINGNS", "OCDNS", "WTREGEN", "D2WLFOL"];
-
     const responses = await Promise.all(
-        series_ids.map(id => fetch(`/api/observations?series_id=${id}`))
+        SERIES_IDS.map(id => fetch(`/api/observations?series_id=${id}`))
     );
     
     const data = await Promise.all(
@@ -13,68 +22,50 @@ async function fetchData() {
 }
 
 function transformData(fredData) {
-
-    const series_ids = ["CURRNS", "DEMDEPNS", "MDLM", "SAVINGNS", "OCDNS", "WTREGEN", "D2WLFOL"];
-    
-    // FRED shows these series in millions, need to convert to billions
-    const millionSeries = ["WTREGEN", "D2WLFOL"];
-
     // Hardcoded CURRNS which is at index 0 for the dates cause it's the longest
     const dates = fredData[0].observations
         .map(obs => obs.date.slice(0, 7))
         .filter(date => date >= "1959-01");
 
-
-    const seriesLookups = fredData.map((data, index) => {
+    const lookups = {};
+    SERIES_IDS.forEach((id, index) => {
         const lookup = new Map();
-        const needsConversion = millionSeries.includes(series_ids[index]);
+        const needsConversion = SERIES_CONFIG[id].convertFromMillions;
 
-        data.observations.forEach(obs => {
+        fredData[index].observations.forEach(obs => {
             let value = parseFloat(obs.value);
             
             if (needsConversion) {
                 value = value / 1000;
             }
             
-            // Use year-month as key to handle different date frequencies
             const yearMonth = obs.date.slice(0, 7);
             lookup.set(yearMonth, value);
         });
-        return lookup;
+        lookups[id] = lookup;
     });
 
-    const CURRNSLookup = seriesLookups[0];
-    const DEMDEPNSLookup = seriesLookups[1];
-    const mdlmLookup = seriesLookups[2];
-    const SAVINGNSLookup = seriesLookups[3];
-    const OCDNSLookup = seriesLookups[4];
-    const wtregenLookup = seriesLookups[5];
-    const d2wlfolLookup = seriesLookups[6];
-
     const values = [
-        // Currency in Circulation
-        dates.map(date => CURRNSLookup.get(date) ?? 0),
-        // Demand Deposits
-        dates.map(date => DEMDEPNSLookup.get(date) ?? 0),
-        // Liquid Deposits (MDLM + SAVINGNS + OCDNS combined)
+        dates.map(date => lookups.CURRNS.get(date) ?? 0),
+        dates.map(date => lookups.DEMDEPNS.get(date) ?? 0),
+        // Liquid Deposits: Use MDLM when available (May 2020+), otherwise SAVINGNS + OCDNS
         dates.map(date => {
-            const mdlm = mdlmLookup.get(date) ?? 0;
-            const savings = SAVINGNSLookup.get(date) ?? 0;
-            const ocd = OCDNSLookup.get(date) ?? 0;
-            return mdlm + savings + ocd;
+            const mdlm = lookups.MDLM.get(date);
+            if (mdlm !== undefined) {
+                return mdlm;
+            }
+            const savings = lookups.SAVINGNS.get(date) ?? 0;
+            const ocd = lookups.OCDNS.get(date) ?? 0;
+            return savings + ocd;
         }),
-        // US Gov Deposits
-        dates.map(date => wtregenLookup.get(date) ?? 0),
-        // Foreign Deposits
-        dates.map(date => d2wlfolLookup.get(date) ?? 0)
+        dates.map(date => lookups.WTREGEN.get(date) ?? 0),
+        dates.map(date => lookups.D2WLFOL.get(date) ?? 0)
     ];
 
     return { dates, values }
 }
 
 function renderChart(dates, values) {
-    const ctx = document.getElementById("chart");
-
     const seriesNames = [
         "Currency in Circulation",
         "Demand Deposits",
@@ -84,47 +75,96 @@ function renderChart(dates, values) {
     ];
     
     const colors = [
-        "rgba(75, 192, 192, 0.7)",
-        "rgba(255, 99, 132, 0.7)",
-        "rgba(255, 205, 86, 0.7)",
-        "rgba(54, 162, 235, 0.7)",
-        "rgba(153, 102, 255, 0.7)"
+        "#4BC0C0",
+        "#FF6384",
+        "#FFCD56",
+        "#36A2EB",
+        "#9966FF"
     ];
 
-    const datasets = values.map((values, index) => ({
-        label: seriesNames[index],
-        data: values,
-        borderColor: colors[index],
-        backgroundColor: colors[index],
-        fill: true,
-        stack: "stack1",
-        spanGaps: true
+    // Convert dates to timestamps and pair with values for Highcharts
+    const series = values.map((seriesValues, index) => ({
+        name: seriesNames[index],
+        data: dates.map((date, i) => [
+            Date.UTC(
+                parseInt(date.slice(0, 4)),
+                parseInt(date.slice(5, 7)) - 1,
+                1
+            ),
+            seriesValues[i]
+        ]),
+        color: colors[index],
+        fillOpacity: 0.7
     }));
-    
-    const yearLabels = dates.map(date => date.slice(0, 4));
 
-    new Chart(ctx, {
-        type: "line",
-        data: {
-            labels: yearLabels,
-            datasets: datasets
-        },
-        options: {
-            responsive: true,
-            scales: {
-                x: {
-                    title: { display: true, text: "Date" }
+    Highcharts.stockChart("chart", {
+        chart: {
+            type: "area",
+            zoomType: "x",
+            resetZoomButton: {
+                theme: {
+                    fill: "#fff",
+                    stroke: "#999",
+                    r: 4,
+                    style: {
+                        fontSize: "12px"
+                    }
                 },
-                y: {
-                    stacked: true,
-                    title: { display: true, text: "Billions $" }
-                }
-            },
-            plugins: {
-                tooltip: {
-                    mode: "index"
+                position: {
+                    align: "right",
+                    x: -10,
+                    y: 10
                 }
             }
+        },
+        title: {
+            text: "True Money Supply Components"
+        },
+        subtitle: {
+            text: "Click and drag to zoom in"
+        },
+        rangeSelector: {
+            enabled: false
+        },
+        xAxis: {
+            type: "datetime"
+        },
+        yAxis: {
+            opposite: false,
+            title: {
+                text: "Billions $"
+            },
+            labels: {
+                formatter: function() {
+                    return "$" + Highcharts.numberFormat(this.value, 0, ".", ",");
+                }
+            }
+        },
+        tooltip: {
+            shared: true,
+            split: false,
+            valuePrefix: "$",
+            valueSuffix: " B",
+            valueDecimals: 1
+        },
+        plotOptions: {
+            area: {
+                stacking: "normal",
+                lineWidth: 1,
+                marker: {
+                    enabled: false
+                }
+            }
+        },
+        series: series,
+        navigator: {
+            enabled: false
+        },
+        scrollbar: {
+            enabled: false
+        },
+        credits: {
+            enabled: false
         }
     });
 }
