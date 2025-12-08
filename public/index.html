@@ -9,153 +9,163 @@
     <script src="https://code.highcharts.com/stock/modules/exporting.js"></script>
 </head>
 <body>
-    <h1>True Money Supply</h1>
+    <div style="text-align: center;">
+        <h1 class="tms-title-engraved">True Money Supply</h1>
+        <div class="sub-text">Metric by Murray Rothbard And Joseph Salerno</div>
+    </div>
+
     <div class="chart-container">
         <div id="chart"></div>
     </div>
 
-    <div class="table-container">
-        <table class="money-supply-table">
-            <thead>
-                <tr>
-                    <th>Component</th>
-                    <th>M1</th>
-                    <th>M2</th>
-                    <th>M3</th>
-                    <th>L</th>
-                    <th>TMS</th>
-                    <th>FRED Series ID(s)</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>Currency in Circulation</td>
-                    <td><span class="checkbox checked"></span></td>
-                    <td><span class="checkbox checked"></span></td>
-                    <td><span class="checkbox checked"></span></td>
-                    <td><span class="checkbox checked"></span></td>
-                    <td><span class="checkbox checked"></span></td>
-                    <td class="fred-id">CURRNS</td>
-                </tr>
-                <tr>
-                    <td>Demand Deposits</td>
-                    <td><span class="checkbox checked"></span></td>
-                    <td><span class="checkbox checked"></span></td>
-                    <td><span class="checkbox checked"></span></td>
-                    <td><span class="checkbox checked"></span></td>
-                    <td><span class="checkbox checked"></span></td>
-                    <td class="fred-id">DEMDEPNS</td>
-                </tr>
-                <tr>
-                    <td>Traveler's Checks</td>
-                    <td><span class="checkbox checked"></span></td>
-                    <td><span class="checkbox checked"></span></td>
-                    <td><span class="checkbox checked"></span></td>
-                    <td><span class="checkbox checked"></span></td>
-                    <td><span class="checkbox"></span></td>
-                    <td class="fred-id"></td>
-                </tr>
-                <tr>
-                    <td>Savings Deposits</td>
-                    <td><span class="checkbox checked"></span></td>
-                    <td><span class="checkbox checked"></span></td>
-                    <td><span class="checkbox checked"></span></td>
-                    <td><span class="checkbox checked"></span></td>
-                    <td><span class="checkbox checked"></span></td>
-                    <td class="fred-id">MDML, SAVINGNS</td>
-                </tr>
-                <tr>
-                    <td>Repurchase Agreements</td>
-                    <td><span class="checkbox"></span></td>
-                    <td><span class="checkbox checked"></span></td>
-                    <td><span class="checkbox checked"></span></td>
-                    <td><span class="checkbox checked"></span></td>
-                    <td><span class="checkbox checked"></span></td>
-                    <td class="fred-id"></td>
-                </tr>
-                <tr>
-                    <td>Overnight Eurodollars</td>
-                    <td><span class="checkbox"></span></td>
-                    <td><span class="checkbox checked"></span></td>
-                    <td><span class="checkbox checked"></span></td>
-                    <td><span class="checkbox checked"></span></td>
-                    <td><span class="checkbox checked"></span></td>
-                    <td class="fred-id"></td>
-                </tr>
-                <tr>
-                    <td>Money Market Deposit Accounts</td>
-                    <td><span class="checkbox"></span></td>
-                    <td><span class="checkbox checked"></span></td>
-                    <td><span class="checkbox checked"></span></td>
-                    <td><span class="checkbox checked"></span></td>
-                    <td><span class="checkbox checked"></span></td>
-                    <td class="fred-id">MDML, OCDNS</td>
-                </tr>
-                <tr>
-                    <td>MMMF Share Accounts</td>
-                    <td><span class="checkbox"></span></td>
-                    <td><span class="checkbox checked"></span></td>
-                    <td><span class="checkbox checked"></span></td>
-                    <td><span class="checkbox checked"></span></td>
-                    <td><span class="checkbox"></span></td>
-                    <td class="fred-id"></td>
-                </tr>
-                <tr>
-                    <td>Small Denomination Time Deposits</td>
-                    <td><span class="checkbox"></span></td>
-                    <td><span class="checkbox checked"></span></td>
-                    <td><span class="checkbox checked"></span></td>
-                    <td><span class="checkbox checked"></span></td>
-                    <td><span class="checkbox"></span></td>
-                    <td class="fred-id"></td>
-                </tr>
-                <tr>
-                    <td>Large Denomination Time Deposits</td>
-                    <td><span class="checkbox"></span></td>
-                    <td><span class="checkbox"></span></td>
-                    <td><span class="checkbox checked"></span></td>
-                    <td><span class="checkbox checked"></span></td>
-                    <td><span class="checkbox"></span></td>
-                    <td class="fred-id"></td>
-                </tr>
-                <tr>
-                    <td>U.S. Savings Bonds</td>
-                    <td><span class="checkbox"></span></td>
-                    <td><span class="checkbox"></span></td>
-                    <td><span class="checkbox"></span></td>
-                    <td><span class="checkbox checked"></span></td>
-                    <td><span class="checkbox checked"></span></td>
-                    <td class="fred-id"></td>
-                </tr>
-                <tr>
-                    <td>Short-Term Treasuries</td>
-                    <td><span class="checkbox"></span></td>
-                    <td><span class="checkbox"></span></td>
-                    <td><span class="checkbox"></span></td>
-                    <td><span class="checkbox checked"></span></td>
-                    <td><span class="checkbox"></span></td>
-                    <td class="fred-id"></td>
-                </tr>
-                <tr>
-                    <td>U.S. Government Deposits</td>
-                    <td><span class="checkbox"></span></td>
-                    <td><span class="checkbox"></span></td>
-                    <td><span class="checkbox"></span></td>
-                    <td><span class="checkbox"></span></td>
-                    <td><span class="checkbox checked"></span></td>
-                    <td class="fred-id"></td>
-                </tr>
-                <tr>
-                    <td>Foreign Deposits</td>
-                    <td><span class="checkbox"></span></td>
-                    <td><span class="checkbox"></span></td>
-                    <td><span class="checkbox"></span></td>
-                    <td><span class="checkbox"></span></td>
-                    <td><span class="checkbox checked"></span></td>
-                    <td class="fred-id"></td>
-                </tr>
-            </tbody>
-        </table>
+    <div class="table-section">
+        <div class="table-container">
+            <table class="money-supply-table">
+                <thead>
+                    <tr>
+                        <th>Component</th>
+                        <th>M1</th>
+                        <th>M2</th>
+                        <th>M3</th>
+                        <th>L</th>
+                        <th>TMS</th>
+                        <th>FRED Series ID(s)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Currency in Circulation</td>
+                        <td><span class="checkbox checked"></span></td>
+                        <td><span class="checkbox checked"></span></td>
+                        <td><span class="checkbox checked"></span></td>
+                        <td><span class="checkbox checked"></span></td>
+                        <td><span class="checkbox checked"></span></td>
+                        <td class="fred-id">CURRNS</td>
+                    </tr>
+                    <tr>
+                        <td>Demand Deposits</td>
+                        <td><span class="checkbox checked"></span></td>
+                        <td><span class="checkbox checked"></span></td>
+                        <td><span class="checkbox checked"></span></td>
+                        <td><span class="checkbox checked"></span></td>
+                        <td><span class="checkbox checked"></span></td>
+                        <td class="fred-id">DEMDEPNS</td>
+                    </tr>
+                    <tr>
+                        <td>Traveler's Checks</td>
+                        <td><span class="checkbox checked"></span></td>
+                        <td><span class="checkbox checked"></span></td>
+                        <td><span class="checkbox checked"></span></td>
+                        <td><span class="checkbox checked"></span></td>
+                        <td><span class="checkbox"></span></td>
+                        <td class="fred-id"></td>
+                    </tr>
+                    <tr>
+                        <td>Savings Deposits</td>
+                        <td><span class="checkbox checked"></span></td>
+                        <td><span class="checkbox checked"></span></td>
+                        <td><span class="checkbox checked"></span></td>
+                        <td><span class="checkbox checked"></span></td>
+                        <td><span class="checkbox checked"></span></td>
+                        <td class="fred-id">MDML, SAVINGNS</td>
+                    </tr>
+                    <tr>
+                        <td>Repurchase Agreements</td>
+                        <td><span class="checkbox"></span></td>
+                        <td><span class="checkbox checked"></span></td>
+                        <td><span class="checkbox checked"></span></td>
+                        <td><span class="checkbox checked"></span></td>
+                        <td><span class="checkbox checked"></span></td>
+                        <td class="fred-id"></td>
+                    </tr>
+                    <tr>
+                        <td>Overnight Eurodollars</td>
+                        <td><span class="checkbox"></span></td>
+                        <td><span class="checkbox checked"></span></td>
+                        <td><span class="checkbox checked"></span></td>
+                        <td><span class="checkbox checked"></span></td>
+                        <td><span class="checkbox checked"></span></td>
+                        <td class="fred-id"></td>
+                    </tr>
+                    <tr>
+                        <td>Money Market Deposit Accounts</td>
+                        <td><span class="checkbox"></span></td>
+                        <td><span class="checkbox checked"></span></td>
+                        <td><span class="checkbox checked"></span></td>
+                        <td><span class="checkbox checked"></span></td>
+                        <td><span class="checkbox checked"></span></td>
+                        <td class="fred-id">MDML, OCDNS</td>
+                    </tr>
+                    <tr>
+                        <td>MMMF Share Accounts</td>
+                        <td><span class="checkbox"></span></td>
+                        <td><span class="checkbox checked"></span></td>
+                        <td><span class="checkbox checked"></span></td>
+                        <td><span class="checkbox checked"></span></td>
+                        <td><span class="checkbox"></span></td>
+                        <td class="fred-id"></td>
+                    </tr>
+                    <tr>
+                        <td>Small Denomination Time Deposits</td>
+                        <td><span class="checkbox"></span></td>
+                        <td><span class="checkbox checked"></span></td>
+                        <td><span class="checkbox checked"></span></td>
+                        <td><span class="checkbox checked"></span></td>
+                        <td><span class="checkbox"></span></td>
+                        <td class="fred-id"></td>
+                    </tr>
+                    <tr>
+                        <td>Large Denomination Time Deposits</td>
+                        <td><span class="checkbox"></span></td>
+                        <td><span class="checkbox"></span></td>
+                        <td><span class="checkbox checked"></span></td>
+                        <td><span class="checkbox checked"></span></td>
+                        <td><span class="checkbox"></span></td>
+                        <td class="fred-id"></td>
+                    </tr>
+                    <tr>
+                        <td>U.S. Savings Bonds</td>
+                        <td><span class="checkbox"></span></td>
+                        <td><span class="checkbox"></span></td>
+                        <td><span class="checkbox"></span></td>
+                        <td><span class="checkbox checked"></span></td>
+                        <td><span class="checkbox checked"></span></td>
+                        <td class="fred-id"></td>
+                    </tr>
+                    <tr>
+                        <td>Short-Term Treasuries</td>
+                        <td><span class="checkbox"></span></td>
+                        <td><span class="checkbox"></span></td>
+                        <td><span class="checkbox"></span></td>
+                        <td><span class="checkbox checked"></span></td>
+                        <td><span class="checkbox"></span></td>
+                        <td class="fred-id"></td>
+                    </tr>
+                    <tr>
+                        <td>U.S. Government Deposits</td>
+                        <td><span class="checkbox"></span></td>
+                        <td><span class="checkbox"></span></td>
+                        <td><span class="checkbox"></span></td>
+                        <td><span class="checkbox"></span></td>
+                        <td><span class="checkbox checked"></span></td>
+                        <td class="fred-id"></td>
+                    </tr>
+                    <tr>
+                        <td>Foreign Deposits</td>
+                        <td><span class="checkbox"></span></td>
+                        <td><span class="checkbox"></span></td>
+                        <td><span class="checkbox"></span></td>
+                        <td><span class="checkbox"></span></td>
+                        <td><span class="checkbox checked"></span></td>
+                        <td class="fred-id"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="portraits">
+            <img src="Rothbard.png" alt="Murray Rothbard">
+            <img src="Salerno.png" alt="Joseph Salerno">
+        </div>
     </div>
     
     <script src="app.js"></script>

@@ -120,9 +120,9 @@ function renderChart(dates, values) {
         title: {
             text: null
         },
-        subtitle: {
-            text: "click and drag to zoom"
-        },
+        // subtitle: {
+        //     text: "click and drag to zoom"
+        // },
         legend: {
             enabled: true,
             align: "center",

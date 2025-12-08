@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@900&display=swap');
+
 * {
     margin: 0;
     padding: 0;
@@ -27,7 +29,8 @@ h1 {
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     padding: 1.5rem;
     width: 100%;
-    max-width: 1000px;
+    max-width: 1200px;
+    margin-top: 2rem;
 }
 
 #chart {
@@ -35,15 +38,35 @@ h1 {
     height: 500px;
 }
 
+.table-section {
+    display: flex;
+    align-items: stretch;
+    gap: 1.5rem;
+    margin-top: 2rem;
+    width: 100%;
+    max-width: 1200px;
+}
+
 .table-container {
+    flex: 1;
     background: white;
     border: 1px solid #ddd;
     border-radius: 8px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    width: 100%;
-    max-width: 1000px;
-    margin-top: 2rem;
     overflow: hidden;
+}
+
+.portraits {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    flex-shrink: 0;
+}
+
+.portraits img {
+    flex: 1;
+    width: 180px;
+    object-fit: cover;
 }
 
 .money-supply-table {
@@ -116,4 +139,54 @@ h1 {
     font-family: 'SF Mono', 'Monaco', 'Consolas', monospace;
     font-size: 0.8125rem;
     color: #555;
+}
+
+.tms-title-engraved {
+    font-family: 'Playfair Display', serif;
+    font-size: 4rem;
+    text-transform: uppercase;
+    color: #1a4d2e;
+    text-align: center;
+    text-shadow: 
+        1px 1px 0px #4ea067, 
+        2px 2px 0px #133821,
+        3px 3px 0px #fff,
+        4px 4px 5px rgba(0,0,0,0.3);
+    letter-spacing: 2px;
+    border-top: 2px solid #1a4d2e;
+    border-bottom: 2px solid #1a4d2e;
+    display: inline-block;
+    padding: 10px 40px;
+    margin: 20px 0;
+}
+
+.sub-text {
+    font-family: sans-serif;
+    font-size: 1rem;
+    color: #555;
+    letter-spacing: 4px;
+    margin-top: -15px;
+    background: #f5f5f5;
+    padding: 0 10px;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 900px) {
+    .table-section {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .portraits {
+        flex-direction: row;
+    }
+    
+    .portraits img {
+        width: 120px;
+        height: 150px;
+    }
+}
+
+@media (max-width: 600px) {
+    .tms-title-engraved { font-size: 2.5rem; }
 }
