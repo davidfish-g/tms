@@ -1,7 +1,7 @@
 import { fetchFredData } from "./fred";
 
 Bun.serve({
-    port: 3000,
+    port: process.env.PORT || 3000,
 
     async fetch(request: Request) {
         const url = new URL(request.url);
