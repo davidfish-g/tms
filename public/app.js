@@ -197,6 +197,9 @@ function renderChart(dates, values) {
         },
         credits: {
             enabled: false
+        },
+        accessibility: {
+            enabled: false
         }
     });
 }

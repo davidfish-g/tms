@@ -31,9 +31,21 @@ h1 {
 }
 
 .header-portrait {
-    width: 140px;
-    height: auto;
+    width: 180px;
+    height: 180px;
+    object-fit: cover;
+    object-position: top center;
 }
+
+/* Style 1: Currency Medallion - circular with coin-like border */
+.portrait-medallion {
+    border-radius: 50%;
+    border: 3px solid #1a4d2e;
+    outline: 2px solid #1a4d2e;
+    outline-offset: 3px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
 
 .chart-container {
     width: 100%;
@@ -136,7 +148,7 @@ h1 {
 
 .tms-title-engraved {
     font-family: 'Playfair Display', serif;
-    font-size: 4rem;
+    font-size: 3rem;
     text-transform: uppercase;
     color: #1a4d2e;
     text-align: center;
@@ -149,8 +161,8 @@ h1 {
     border-top: 2px solid #1a4d2e;
     border-bottom: 2px solid #1a4d2e;
     display: inline-block;
-    padding: 10px 40px;
-    margin: 20px 0;
+    padding: 8px 30px;
+    margin: 15px 0;
 }
 
 .sub-text {
@@ -168,15 +180,24 @@ h1 {
     }
     
     .header-portrait {
-        width: 100px;
+        width: 120px;
+        height: 120px;
+    }
+    
+    .tms-title-engraved {
+        font-size: 2.25rem;
     }
 }
 
 @media (max-width: 600px) {
-    .tms-title-engraved { font-size: 2.5rem; }
+    .tms-title-engraved {
+        font-size: 1.75rem;
+        padding: 6px 20px;
+    }
     
     .header-portrait {
-        width: 70px;
+        width: 80px;
+        height: 80px;
     }
     
     .header-section {
