@@ -75,11 +75,11 @@ function renderChart(dates, values) {
     ];
     
     const colors = [
-        "#4BC0C0",
-        "#FF6384",
-        "#FFCD56",
-        "#36A2EB",
-        "#9966FF"
+        "#0d2818",  // Deep forest green (Currency - bottom)
+        "#1a4d2e",  // Forest green (Demand Deposits)
+        "#40916c",  // Emerald (Liquid Deposits)
+        "#74c69d",  // Mint green (U.S. Gov. Deposits)
+        "#d4a017"   // Rich gold (Foreign Deposits - top)
     ];
 
     // Convert dates to timestamps and pair with values for Highcharts
@@ -101,13 +101,15 @@ function renderChart(dates, values) {
         chart: {
             type: "area",
             zoomType: "x",
+            backgroundColor: "transparent",
             resetZoomButton: {
                 theme: {
-                    fill: "#fff",
-                    stroke: "#999",
+                    fill: "rgba(255,255,255,0.8)",
+                    stroke: "#1a4d2e",
                     r: 4,
                     style: {
-                        fontSize: "12px"
+                        fontSize: "12px",
+                        color: "#1a4d2e"
                     }
                 },
                 position: {
@@ -127,22 +129,46 @@ function renderChart(dates, values) {
             enabled: true,
             align: "center",
             verticalAlign: "top",
-            layout: "horizontal"
+            layout: "horizontal",
+            itemStyle: {
+                fontWeight: "600",
+                color: "#333"
+            }
         },
         rangeSelector: {
             enabled: false
         },
         xAxis: {
-            type: "datetime"
+            type: "datetime",
+            gridLineWidth: 0,
+            lineColor: "rgba(0, 0, 0, 0.1)",
+            tickColor: "rgba(0, 0, 0, 0.2)",
+            labels: {
+                style: {
+                    fontWeight: "500",
+                    color: "#555"
+                }
+            }
         },
         yAxis: {
             opposite: false,
             title: {
-                text: "Billions $"
+                text: "Billions $",
+                style: {
+                    fontWeight: "600",
+                    color: "#444"
+                }
             },
+            gridLineColor: "rgba(0, 0, 0, 0.06)",
+            lineColor: "rgba(0, 0, 0, 0.1)",
+            tickColor: "rgba(0, 0, 0, 0.2)",
             labels: {
                 formatter: function() {
                     return "$" + Highcharts.numberFormat(this.value, 0, ".", ",");
+                },
+                style: {
+                    fontWeight: "500",
+                    color: "#555"
                 }
             }
         },
