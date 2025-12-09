@@ -153,7 +153,7 @@ function renderChart(dates, values) {
         yAxis: {
             opposite: false,
             title: {
-                text: "Billions $",
+                text: "Billion $",
                 style: {
                     fontWeight: "600",
                     color: "#444"
@@ -164,7 +164,7 @@ function renderChart(dates, values) {
             tickColor: "rgba(0, 0, 0, 0.2)",
             labels: {
                 formatter: function() {
-                    return "$" + Highcharts.numberFormat(this.value, 0, ".", ",");
+                    return Highcharts.numberFormat(this.value, 0, ".", ",");
                 },
                 style: {
                     fontWeight: "500",
@@ -200,6 +200,18 @@ function renderChart(dates, values) {
         },
         accessibility: {
             enabled: false
+        },
+        exporting: {
+            buttons: {
+                contextButton: {
+                    theme: {
+                        fill: "transparent",
+                        stroke: "none"
+                    },
+                    symbolStroke: "#1a4d2e",
+                    symbolFill: "#1a4d2e"
+                }
+            }
         }
     });
 }
