@@ -122,9 +122,15 @@ function renderChart(dates, values) {
         title: {
             text: null
         },
-        // subtitle: {
-        //     text: "click and drag to zoom"
-        // },
+        subtitle: {
+            text: "Click and Drag to Zoom",
+            align: "right",
+            y: 48,
+            style: {
+                fontSize: "12px",
+                color: "#888"
+            }
+        },
         legend: {
             enabled: true,
             align: "center",
@@ -202,16 +208,7 @@ function renderChart(dates, values) {
             enabled: false
         },
         exporting: {
-            buttons: {
-                contextButton: {
-                    theme: {
-                        fill: "transparent",
-                        stroke: "none"
-                    },
-                    symbolStroke: "#1a4d2e",
-                    symbolFill: "#1a4d2e"
-                }
-            }
+            enabled: false
         }
     });
 }

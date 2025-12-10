@@ -6,7 +6,6 @@
     <title>True Money Supply</title>
     <link rel="stylesheet" href="styles.css">
     <script src="https://code.highcharts.com/stock/highstock.js"></script>
-    <script src="https://code.highcharts.com/stock/modules/exporting.js"></script>
 </head>
 <body>
     <div class="header-section">
@@ -33,7 +32,7 @@
                         <th>M3</th>
                         <th>L</th>
                         <th>TMS</th>
-                        <th>FRED Series ID(s)</th>
+                        <th>FRED Series</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -173,20 +172,24 @@
             <h2>What is True Money Supply?</h2>
             <p>
                 The <strong>True Money Supply (TMS)</strong> is a measure of the money stock developed by 
-                Murray Rothbard and Joseph Salerno. Unlike conventional measures such as M1 or M2, TMS focuses 
-                exclusively on money available for exchange without delay or penalty. This distinction has significance, 
-                as only immediately available money affects prices and economic calculation.
+                Murray Rothbard and Joseph Salerno. Unlike M1 and M2, TMS exclusively tracks money available 
+                for exchange without delay or penalty. This distinction has significance, as only immediately 
+                available money affects prices and economic calculation.
             </p>
             <p>
                 By tracking TMS, we gain clearer insight into monetary inflation than with price indices like the CPI, 
                 which are influenced by non-monetary factors.
+            </p>
+            <p>
+                TMS data isn't widely accessible. This website aggregates the necessary components from the FRED API,
+                providing a current and convenient way to track TMS.
             </p>
         </div>
 
         <div class="sidebar-section">
             <h3>Sources</h3>
             <ul class="sidebar-links">
-                <li><a href="https://mises.org/austrian-economics-newsletter/true-money-supply-measure-supply-medium-exchange-us-economy-0#footnote25_wrRYRm9luGpO3JDzkUT4SbK5aH3SuBdJuNZrscdagg4_nCTUcSWD3aFL" target="_blank">TMS Article</a></li>
+                <li><a href="https://mises.org/austrian-economics-newsletter/true-money-supply-measure-supply-medium-exchange-us-economy-0#footnote25_wrRYRm9luGpO3JDzkUT4SbK5aH3SuBdJuNZrscdagg4_nCTUcSWD3aFL" target="_blank">About TMS</a></li>
                 <li><a href="https://fred.stlouisfed.org/" target="_blank">FRED</a></li>
             </ul>
 
