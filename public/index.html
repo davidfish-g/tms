@@ -29,8 +29,7 @@
                         <th>Component</th>
                         <th>M1</th>
                         <th>M2</th>
-                        <th>M3</th>
-                        <th>L</th>
+                        <th>M3<sup>1</sup></th>
                         <th>TMS</th>
                         <th>FRED Series</th>
                     </tr>
@@ -42,8 +41,7 @@
                         <td><span class="checkbox checked"></span></td>
                         <td><span class="checkbox checked"></span></td>
                         <td><span class="checkbox checked"></span></td>
-                        <td><span class="checkbox checked"></span></td>
-                        <td class="fred-id">CURRNS</td>
+                        <td class="fred-id"><a href="https://fred.stlouisfed.org/series/CURRNS" target="_blank">CURRNS</a></td>
                     </tr>
                     <tr>
                         <td>Demand Deposits</td>
@@ -51,12 +49,18 @@
                         <td><span class="checkbox checked"></span></td>
                         <td><span class="checkbox checked"></span></td>
                         <td><span class="checkbox checked"></span></td>
-                        <td><span class="checkbox checked"></span></td>
-                        <td class="fred-id">DEMDEPNS</td>
+                        <td class="fred-id"><a href="https://fred.stlouisfed.org/series/DEMDEPNS" target="_blank">DEMDEPNS</a></td>
                     </tr>
                     <tr>
-                        <td>Traveler's Checks</td>
+                        <td>Other Liquid Deposits</td>
                         <td><span class="checkbox checked"></span></td>
+                        <td><span class="checkbox checked"></span></td>
+                        <td><span class="checkbox checked"></span></td>
+                        <td><span class="checkbox checked"></span></td>
+                        <td class="fred-id"><a href="https://fred.stlouisfed.org/series/MDLNM" target="_blank">MDLNM</a>, <a href="https://fred.stlouisfed.org/series/SAVINGNS" target="_blank">SAVINGNS</a>, <a href="https://fred.stlouisfed.org/series/OCDNS" target="_blank">OCDNS</a></td>
+                    </tr>
+                    <tr>
+                        <td>Traveller's Checks<sup>1</sup></td>
                         <td><span class="checkbox checked"></span></td>
                         <td><span class="checkbox checked"></span></td>
                         <td><span class="checkbox checked"></span></td>
@@ -64,67 +68,52 @@
                         <td class="fred-id"></td>
                     </tr>
                     <tr>
-                        <td>Savings Deposits</td>
-                        <td><span class="checkbox checked"></span></td>
-                        <td><span class="checkbox checked"></span></td>
-                        <td><span class="checkbox checked"></span></td>
-                        <td><span class="checkbox checked"></span></td>
-                        <td><span class="checkbox checked"></span></td>
-                        <td class="fred-id">MDML, SAVINGNS</td>
-                    </tr>
-                    <tr>
-                        <td>Repurchase Agreements</td>
+                        <td>Retail MMF Balances</td>
                         <td><span class="checkbox"></span></td>
                         <td><span class="checkbox checked"></span></td>
                         <td><span class="checkbox checked"></span></td>
-                        <td><span class="checkbox checked"></span></td>
-                        <td><span class="checkbox checked"></span></td>
+                        <td><span class="checkbox"></span></td>
                         <td class="fred-id"></td>
                     </tr>
                     <tr>
-                        <td>Overnight Eurodollars</td>
+                        <td>Small-Denomination Time Deposits (&lt;$100k)</td>
                         <td><span class="checkbox"></span></td>
-                        <td><span class="checkbox checked"></span></td>
-                        <td><span class="checkbox checked"></span></td>
-                        <td><span class="checkbox checked"></span></td>
-                        <td><span class="checkbox checked"></span></td>
-                        <td class="fred-id"></td>
-                    </tr>
-                    <tr>
-                        <td>Money Market Deposit Accounts</td>
-                        <td><span class="checkbox"></span></td>
-                        <td><span class="checkbox checked"></span></td>
-                        <td><span class="checkbox checked"></span></td>
-                        <td><span class="checkbox checked"></span></td>
-                        <td><span class="checkbox checked"></span></td>
-                        <td class="fred-id">MDML, OCDNS</td>
-                    </tr>
-                    <tr>
-                        <td>MMMF Share Accounts</td>
-                        <td><span class="checkbox"></span></td>
-                        <td><span class="checkbox checked"></span></td>
                         <td><span class="checkbox checked"></span></td>
                         <td><span class="checkbox checked"></span></td>
                         <td><span class="checkbox"></span></td>
                         <td class="fred-id"></td>
                     </tr>
                     <tr>
-                        <td>Small Denomination Time Deposits</td>
+                        <td>Large-Denomination Time Deposits (&gt;$100k)</td>
                         <td><span class="checkbox"></span></td>
-                        <td><span class="checkbox checked"></span></td>
-                        <td><span class="checkbox checked"></span></td>
+                        <td><span class="checkbox"></span></td>
                         <td><span class="checkbox checked"></span></td>
                         <td><span class="checkbox"></span></td>
                         <td class="fred-id"></td>
                     </tr>
                     <tr>
-                        <td>Large Denomination Time Deposits</td>
+                        <td>Institutional MMF Balances</td>
                         <td><span class="checkbox"></span></td>
                         <td><span class="checkbox"></span></td>
-                        <td><span class="checkbox checked"></span></td>
                         <td><span class="checkbox checked"></span></td>
                         <td><span class="checkbox"></span></td>
                         <td class="fred-id"></td>
+                    </tr>
+                    <tr>
+                        <td>Overnight Repurchase Agreements<sup>2</sup></td>
+                        <td><span class="checkbox"></span></td>
+                        <td><span class="checkbox"></span></td>
+                        <td><span class="checkbox checked"></span></td>
+                        <td><span class="checkbox checked"></span></td>
+                        <td class="fred-id"><a href="https://fred.stlouisfed.org/series/H0MRPNM" target="_blank">H0MRPNM</a></td>
+                    </tr>
+                    <tr>
+                        <td>Overnight Eurodollars<sup>2</sup></td>
+                        <td><span class="checkbox"></span></td>
+                        <td><span class="checkbox"></span></td>
+                        <td><span class="checkbox checked"></span></td>
+                        <td><span class="checkbox checked"></span></td>
+                        <td class="fred-id"><a href="https://fred.stlouisfed.org/series/EURONS" target="_blank">EURONS</a></td>
                     </tr>
                     <tr>
                         <td>U.S. Savings Bonds</td>
@@ -132,38 +121,43 @@
                         <td><span class="checkbox"></span></td>
                         <td><span class="checkbox"></span></td>
                         <td><span class="checkbox checked"></span></td>
-                        <td><span class="checkbox checked"></span></td>
-                        <td class="fred-id"></td>
+                        <td class="fred-id"><a href="https://fred.stlouisfed.org/series/FGSBLUQ027S" target="_blank">FGSBLUQ027S</a></td>
                     </tr>
                     <tr>
-                        <td>Short-Term Treasuries</td>
+                        <td>U.S. Government Deposits at FED</td>
                         <td><span class="checkbox"></span></td>
                         <td><span class="checkbox"></span></td>
                         <td><span class="checkbox"></span></td>
                         <td><span class="checkbox checked"></span></td>
-                        <td><span class="checkbox"></span></td>
-                        <td class="fred-id"></td>
+                        <td class="fred-id"><a href="https://fred.stlouisfed.org/series/WTREGEN" target="_blank">WTREGEN</a>, <a href="https://fred.stlouisfed.org/series/GDBFRW" target="_blank">GDBFRW</a></td>
                     </tr>
                     <tr>
-                        <td>U.S. Government Deposits</td>
-                        <td><span class="checkbox"></span></td>
+                        <td>U.S. Government Deposits at Commercial Banks</td>
                         <td><span class="checkbox"></span></td>
                         <td><span class="checkbox"></span></td>
                         <td><span class="checkbox"></span></td>
                         <td><span class="checkbox checked"></span></td>
-                        <td class="fred-id"></td>
+                        <td class="fred-id"><a href="https://fred.stlouisfed.org/series/BOGZ1FL763123005Q" target="_blank">BOGZ1FL763123005Q</a></td>
                     </tr>
                     <tr>
-                        <td>Foreign Deposits</td>
-                        <td><span class="checkbox"></span></td>
+                        <td>Foreign Deposits at FED</td>
                         <td><span class="checkbox"></span></td>
                         <td><span class="checkbox"></span></td>
                         <td><span class="checkbox"></span></td>
                         <td><span class="checkbox checked"></span></td>
-                        <td class="fred-id"></td>
+                        <td class="fred-id"><a href="https://fred.stlouisfed.org/series/WDFOL" target="_blank">WDFOL</a></td>
+                    </tr>
+                    <tr>
+                        <td>Foreign Deposits at Commercial Banks<sup>2</sup></td>
+                        <td><span class="checkbox"></span></td>
+                        <td><span class="checkbox"></span></td>
+                        <td><span class="checkbox"></span></td>
+                        <td><span class="checkbox checked"></span></td>
+                        <td class="fred-id"><a href="https://fred.stlouisfed.org/series/DDDFOINS" target="_blank">DDDFOINS</a>, <a href="https://fred.stlouisfed.org/series/DDDFCBNS" target="_blank">DDDFCBNS</a></td>
                     </tr>
                 </tbody>
             </table>
+            <p class="table-note">1. Discontinued<br>2. Missing current data</p>
         </div>
     </div>
 

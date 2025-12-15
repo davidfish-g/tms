@@ -141,10 +141,20 @@ h1 {
     transform: translate(-50%, -50%) rotate(45deg);
 }
 
-.fred-id {
+.fred-id a {
     font-family: 'SF Mono', 'Monaco', 'Consolas', monospace;
     font-size: 0.8125rem;
     color: #555;
+    text-decoration: none;
+}
+
+.table-note {
+    font-size: 0.8125rem;
+    color: #555;
+    margin-top: 1rem;
+    margin-left: 1rem;
+    text-align: left;
+    line-height: 1.1;
 }
 
 .tms-title-engraved {
