@@ -4,8 +4,6 @@ const SERIES_CONFIG = {
     MDLNM:            { convertFromMillions: false },
     SAVINGNS:         { convertFromMillions: false },
     OCDNS:            { convertFromMillions: false },
-    H0MRPNM:          { convertFromMillions: false },  
-    EURONS:           { convertFromMillions: false },  
     FGSBLUQ027S:      { convertFromMillions: true },
     WTREGEN:          { convertFromMillions: true },   
     GDBFRW:           { convertFromMillions: true },   
@@ -78,7 +76,7 @@ function transformData(fredData) {
         // 2. Demand Deposits
         dates.map(date => lookups.DEMDEPNS.get(date) ?? 0),
         
-        // 3. Liquid Deposits = Other Liquid Deposits + Repos + Eurodollars + U.S. Savings Bonds
+        // 3. Other Liquid Deposits + U.S. Savings Bonds
         dates.map(date => {
             // Other Liquid Deposits: MDLNM (May 2020+) or SAVINGNS + OCDNS
             const mdlnm = lookups.MDLNM.get(date);
@@ -86,11 +84,9 @@ function transformData(fredData) {
                 ? mdlnm 
                 : (lookups.SAVINGNS.get(date) ?? 0) + (lookups.OCDNS.get(date) ?? 0);
             
-            const repos = lookups.H0MRPNM.get(date) ?? 0;
-            const eurodollars = lookups.EURONS.get(date) ?? 0;
             const savingsBonds = lookups.FGSBLUQ027S.get(date) ?? 0;
             
-            return otherLiquid + repos + eurodollars + savingsBonds;
+            return otherLiquid + savingsBonds;
         }),
         
         // 4. U.S. Gov. Deposits = FED (GDBFRW pre-2002 / WTREGEN 2002+) + Commercial Banks
