@@ -165,7 +165,7 @@ function renderChart(dates, values) {
             text: null
         },
         subtitle: {
-            text: "Click and Drag to Zoom",
+            text: window.matchMedia("(max-width: 900px)").matches ? null : "Click and Drag to Zoom",
             align: "right",
             y: 48,
             style: {
@@ -182,6 +182,35 @@ function renderChart(dates, values) {
                 fontWeight: "600",
                 color: "#333"
             }
+        },
+        responsive: {
+            rules: [{
+                condition: {
+                    maxWidth: 600
+                },
+                chartOptions: {
+                    legend: {
+                        itemStyle: {
+                            fontSize: "10px"
+                        },
+                        itemDistance: 8
+                    },
+                    yAxis: {
+                        labels: {
+                            formatter: function() {
+                                // Compact format: 20k instead of 20,000
+                                if (this.value >= 1000) {
+                                    return (this.value / 1000) + "k";
+                                }
+                                return this.value;
+                            },
+                            style: {
+                                fontSize: "10px"
+                            }
+                        }
+                    }
+                }
+            }]
         },
         rangeSelector: {
             enabled: false
