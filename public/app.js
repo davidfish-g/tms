@@ -4,7 +4,6 @@ const SERIES_CONFIG = {
     MDLNM:            { convertFromMillions: false },
     SAVINGNS:         { convertFromMillions: false },
     OCDNS:            { convertFromMillions: false },
-    FGSBLUQ027S:      { convertFromMillions: true },
     WTREGEN:          { convertFromMillions: true },   
     GDBFRW:           { convertFromMillions: true },   
     BOGZ1FL763123005Q: { convertFromMillions: true },
@@ -40,6 +39,11 @@ function transformData(fredData) {
         fredData[index].observations.forEach(obs => {
             let value = parseFloat(obs.value);
             
+            // Skip missing/invalid data (FRED uses "." for missing values)
+            if (isNaN(value)) {
+                return;
+            }
+            
             if (needsConversion) {
                 value = value / 1000;
             }
@@ -56,7 +60,7 @@ function transformData(fredData) {
     });
 
     // Forward-fill quarterly series to monthly
-    const quarterlySeries = ["FGSBLUQ027S", "BOGZ1FL763123005Q"];
+    const quarterlySeries = ["BOGZ1FL763123005Q"];
     quarterlySeries.forEach(id => {
         const lookup = lookups[id];
         let lastValue = 0;
@@ -71,35 +75,31 @@ function transformData(fredData) {
 
     const values = [
         // 1. Currency
-        dates.map(date => lookups.CURRNS.get(date) ?? 0),
+        dates.map(date => lookups.CURRNS.get(date) || 0),
         
         // 2. Demand Deposits
-        dates.map(date => lookups.DEMDEPNS.get(date) ?? 0),
+        dates.map(date => lookups.DEMDEPNS.get(date) || 0),
         
-        // 3. Other Liquid Deposits + U.S. Savings Bonds
+        // 3. Other Liquid Deposits
         dates.map(date => {
             // Other Liquid Deposits: MDLNM (May 2020+) or SAVINGNS + OCDNS
             const mdlnm = lookups.MDLNM.get(date);
-            const otherLiquid = mdlnm !== undefined 
+            return mdlnm !== undefined
                 ? mdlnm 
-                : (lookups.SAVINGNS.get(date) ?? 0) + (lookups.OCDNS.get(date) ?? 0);
-            
-            const savingsBonds = lookups.FGSBLUQ027S.get(date) ?? 0;
-            
-            return otherLiquid + savingsBonds;
+                : (lookups.SAVINGNS.get(date) || 0) + (lookups.OCDNS.get(date) || 0);
         }),
         
         // 4. U.S. Gov. Deposits = FED (GDBFRW pre-2002 / WTREGEN 2002+) + Commercial Banks
         dates.map(date => {
-            const fedDeposits = lookups.WTREGEN.get(date) ?? lookups.GDBFRW.get(date) ?? 0;
-            const bankDeposits = lookups.BOGZ1FL763123005Q.get(date) ?? 0;
+            const fedDeposits = lookups.WTREGEN.get(date) || lookups.GDBFRW.get(date) || 0;
+            const bankDeposits = lookups.BOGZ1FL763123005Q.get(date) || 0;
             return fedDeposits + bankDeposits;
         }),
         
         // 5. Foreign Deposits = FED + Commercial Banks (DDDFOINS + DDDFCBNS)
         dates.map(date => {
-            const fedDeposits = lookups.WDFOL.get(date) ?? 0;
-            const bankDeposits = (lookups.DDDFOINS.get(date) ?? 0) + (lookups.DDDFCBNS.get(date) ?? 0);
+            const fedDeposits = lookups.WDFOL.get(date) || 0;
+            const bankDeposits = (lookups.DDDFOINS.get(date) || 0) + (lookups.DDDFCBNS.get(date) || 0);
             return fedDeposits + bankDeposits;
         })
     ];
@@ -223,9 +223,30 @@ function renderChart(dates, values) {
         tooltip: {
             shared: true,
             split: false,
-            valuePrefix: "$",
-            valueSuffix: " B",
-            valueDecimals: 1
+            useHTML: true,
+            formatter: function() {
+                const date = Highcharts.dateFormat("%B %Y", this.x);
+                let total = 0;
+                let rows = "";
+                
+                // Iterate in reverse to show top of stack first
+                for (let i = this.points.length - 1; i >= 0; i--) {
+                    const point = this.points[i];
+                    total += point.y;
+                    rows += `<tr>
+                        <td><span style="color:${point.color}">●</span> ${point.series.name}:</td>
+                        <td style="text-align:right;padding-left:8px;font-weight:500">$${Highcharts.numberFormat(point.y, 1)} B</td>
+                    </tr>`;
+                }
+                
+                return `<div style="font-size:13px">
+                    <div style="font-weight:600;margin-bottom:6px;border-bottom:1px solid #ddd;padding-bottom:4px">${date}</div>
+                    <table style="margin-bottom:6px">${rows}</table>
+                    <div style="font-weight:700;border-top:1px solid #1a4d2e;padding-top:6px;color:#1a4d2e">
+                        Total TMS: $${Highcharts.numberFormat(total, 1)} B
+                    </div>
+                </div>`;
+            }
         },
         plotOptions: {
             area: {
