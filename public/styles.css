@@ -161,7 +161,7 @@ h1 {
 
 .tms-title-engraved {
     font-family: 'Playfair Display', serif;
-    font-size: 3rem;
+    font-size: clamp(1.1rem, 4.5vw, 3rem);
     text-transform: uppercase;
     color: #1a4d2e;
     text-align: center;
@@ -170,20 +170,22 @@ h1 {
         2px 2px 0px #133821,
         3px 3px 0px #fff,
         4px 4px 5px rgba(0,0,0,0.3);
-    letter-spacing: 2px;
+    letter-spacing: clamp(0px, 0.2vw, 2px);
     border-top: 2px solid #1a4d2e;
     border-bottom: 2px solid #1a4d2e;
     display: inline-block;
-    padding: 8px 30px;
+    padding: 8px clamp(8px, 2vw, 30px);
     margin: 15px 0;
+    max-width: 100%;
 }
 
 .sub-text {
     font-family: sans-serif;
-    font-size: 1rem;
+    font-size: clamp(0.5rem, 1.3vw, 1rem);
     color: #555;
-    letter-spacing: 4px;
+    letter-spacing: clamp(0px, 0.3vw, 4px);
     margin-top: 0.5rem;
+    max-width: 100%;
 }
 
 .footer-section {
@@ -300,10 +302,6 @@ h1 {
         aspect-ratio: 1;
     }
     
-    .tms-title-engraved {
-        font-size: 2.25rem;
-    }
-    
     /* Table horizontal scroll on mobile */
     .table-container {
         overflow-x: auto;
@@ -318,17 +316,6 @@ h1 {
 @media (max-width: 600px) {
     body {
         padding: 1rem;
-    }
-    
-    .tms-title-engraved {
-        font-size: 1.5rem;
-        padding: 6px 15px;
-        letter-spacing: 1px;
-    }
-    
-    .sub-text {
-        font-size: 0.8rem;
-        letter-spacing: 2px;
     }
     
     .header-portrait {

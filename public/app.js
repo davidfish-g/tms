@@ -165,7 +165,7 @@ function renderChart(dates, values) {
             text: null
         },
         subtitle: {
-            text: window.matchMedia("(max-width: 900px)").matches ? null : "Click and Drag to Zoom",
+            text: "Click and Drag to Zoom",
             align: "right",
             y: 48,
             style: {
@@ -185,6 +185,15 @@ function renderChart(dates, values) {
         },
         responsive: {
             rules: [{
+                condition: {
+                    maxWidth: 1000
+                },
+                chartOptions: {
+                    subtitle: {
+                        text: null
+                    }
+                }
+            }, {
                 condition: {
                     maxWidth: 600
                 },
@@ -230,7 +239,7 @@ function renderChart(dates, values) {
         yAxis: {
             opposite: false,
             title: {
-                text: "Billion $",
+                text: "Billions $",
                 style: {
                     fontWeight: "600",
                     color: "#444"
