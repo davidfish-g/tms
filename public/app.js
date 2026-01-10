@@ -186,7 +186,7 @@ function renderChart(dates, values) {
         responsive: {
             rules: [{
                 condition: {
-                    maxWidth: 1000
+                    maxWidth: 1050
                 },
                 chartOptions: {
                     subtitle: {
@@ -212,9 +212,6 @@ function renderChart(dates, values) {
                                     return (this.value / 1000) + "k";
                                 }
                                 return this.value;
-                            },
-                            style: {
-                                fontSize: "10px"
                             }
                         }
                     }
