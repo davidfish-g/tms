@@ -1,8 +1,10 @@
 # dependencies (bun install)
 node_modules
 
-# cursor
+# ai
 .cursor
+claude.md
+.claude
 
 # output
 out

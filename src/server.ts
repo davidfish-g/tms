@@ -22,6 +22,10 @@ Bun.serve({
             });
         }
 
+        if (url.pathname === "/lib/highstock.js") {
+            return new Response(Bun.file("node_modules/highcharts/highstock.js"));
+        }
+
         if (url.pathname === "/") {
             return new Response(Bun.file("public/index.html"));
         }

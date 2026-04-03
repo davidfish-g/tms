@@ -115,32 +115,21 @@ h1 {
     background-color: rgba(26, 77, 46, 0.08);
 }
 
-.checkbox {
+.indicator {
     display: inline-block;
-    width: 16px;
-    height: 16px;
-    border: 2px solid #9a9a9a;
-    border-radius: 2px;
-    background-color: white;
     vertical-align: middle;
+    font-size: 1rem;
+    line-height: 1;
 }
 
-.checkbox.checked {
-    background-color: #1a4d2e;
-    border-color: #1a4d2e;
-    position: relative;
+.indicator::after {
+    content: '\2014';
+    color: #555;
 }
 
-.checkbox.checked::after {
-    content: '';
-    position: absolute;
-    left: 50%;
-    top: 40%;
-    width: 4px;
-    height: 8px;
-    border: solid white;
-    border-width: 0 2px 2px 0;
-    transform: translate(-50%, -50%) rotate(45deg);
+.indicator.included::after {
+    content: '\25CF';
+    color: #1a4d2e;
 }
 
 .fred-id a {
@@ -186,6 +175,100 @@ h1 {
     letter-spacing: clamp(0px, 0.3vw, 4px);
     margin-top: 0.5rem;
     max-width: 100%;
+}
+
+.charts-notice {
+    display: inline-block;
+    margin-top: 0.5rem;
+    font-size: 0.9rem;
+    color: #1a4d2e;
+    text-decoration: none;
+    font-weight: 500;
+    transition: opacity 0.15s;
+}
+
+.charts-notice:hover {
+    opacity: 0.7;
+}
+
+.analysis-section {
+    display: none;
+    width: 100%;
+    max-width: 1200px;
+    margin-top: 60px;
+    padding-top: 60px;
+    padding-bottom: 60px;
+    border-top: 1px solid rgba(26, 77, 46, 0.25);
+}
+
+.analysis-section.visible {
+    display: block;
+}
+
+.section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.75rem;
+    color: #1a4d2e;
+    margin-bottom: 0.75rem;
+    border-bottom: 2px solid #1a4d2e;
+    padding-bottom: 0.5rem;
+    display: inline-block;
+}
+
+.analysis-text {
+    margin-bottom: 1.25rem;
+    font-size: 1rem;
+    line-height: 1.7;
+    color: #444;
+}
+
+.chart-wrapper {
+    position: relative;
+}
+
+.analysis-toggle {
+    position: absolute;
+    top: 14px;
+    right: 0;
+    z-index: 5;
+    display: inline-flex;
+    border: 1.5px solid #1a4d2e;
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+.analysis-toggle-btn {
+    padding: 0.2rem 0.85rem;
+    border: none;
+    background: transparent;
+    color: #1a4d2e;
+    font-weight: 600;
+    font-size: 0.75rem;
+    letter-spacing: 0.03em;
+    cursor: pointer;
+    transition: all 0.15s;
+}
+
+.analysis-toggle-btn.active {
+    background: #1a4d2e;
+    color: white;
+}
+
+.analysis-subtitle {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #1a4d2e;
+    margin: 0;
+}
+
+#growth-chart {
+    width: 100%;
+    height: 450px;
+}
+
+#cumulative-chart {
+    width: 100%;
+    height: 400px;
 }
 
 .footer-section {
@@ -317,24 +400,36 @@ h1 {
     body {
         padding: 1rem;
     }
-    
+
     .header-portrait {
         width: 70px;
         max-width: 22vw;
     }
-    
+
     .header-section {
         gap: 0.5rem;
         flex-wrap: nowrap;
     }
-    
+
     .chart-container {
         margin-top: 1rem;
         margin-bottom: 30px;
     }
-    
+
     #chart {
         height: 350px;
+    }
+
+    .analysis-section {
+        margin-top: 30px;
+    }
+
+    #growth-chart {
+        height: 350px;
+    }
+
+    #cumulative-chart {
+        height: 300px;
     }
     
     .footer-section {
