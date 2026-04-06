@@ -39,3 +39,4 @@ All data comes from the [FRED API](https://fred.stlouisfed.org/) (Federal Reserv
 ## Stack
 
 Bun HTTP server (TypeScript) serving vanilla JS + Highcharts. Zero runtime dependencies.
+
