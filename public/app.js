@@ -18,6 +18,25 @@ const OVERLAY_SERIES = ["M1NS", "M2NS"];
 const CPI_SERIES = "CPIAUCNS";
 const MVPY_SERIES = ["GDP", "GDPC1"];
 
+function createResetZoomButtonOptions() {
+    return {
+        theme: {
+            fill: "rgba(255,255,255,0.8)",
+            stroke: "#1a4d2e",
+            r: 4,
+            style: {
+                fontSize: "12px",
+                color: "#1a4d2e"
+            }
+        },
+        position: {
+            align: "right",
+            x: -10,
+            y: 10
+        }
+    };
+}
+
 async function fetchData() {
     const allIds = [...SERIES_IDS, ...OVERLAY_SERIES, CPI_SERIES, ...MVPY_SERIES];
     const responses = await Promise.all(
@@ -191,22 +210,7 @@ function renderChart(dates, values, overlayValues) {
             type: "area",
             zoomType: "x",
             backgroundColor: "transparent",
-            resetZoomButton: {
-                theme: {
-                    fill: "rgba(255,255,255,0.8)",
-                    stroke: "#1a4d2e",
-                    r: 4,
-                    style: {
-                        fontSize: "12px",
-                        color: "#1a4d2e"
-                    }
-                },
-                position: {
-                    align: "right",
-                    x: -10,
-                    y: 10
-                }
-            }
+            resetZoomButton: createResetZoomButtonOptions()
         },
         title: {
             text: null
@@ -525,7 +529,11 @@ function renderAnalysisSection(dates, tmsValues, m2Data, gdpData, rgdpData, cpiD
         if (decompChart) { decompChart.destroy(); decompChart = null; }
 
         decompChart = Highcharts.chart("growth-chart", {
-            chart: { backgroundColor: "transparent", zoomType: "x" },
+            chart: {
+                backgroundColor: "transparent",
+                zoomType: "x",
+                resetZoomButton: createResetZoomButtonOptions()
+            },
             title: { text: null },
             legend: {
                 enabled: true,
@@ -630,6 +638,7 @@ function renderAnalysisSection(dates, tmsValues, m2Data, gdpData, rgdpData, cpiD
         chart: {
             backgroundColor: "transparent",
             zoomType: "x",
+            resetZoomButton: createResetZoomButtonOptions(),
             events: {
                 load: function() { drawRatioAnnotation(this); },
                 redraw: function() { drawRatioAnnotation(this); }
