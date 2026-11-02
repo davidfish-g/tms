@@ -16,24 +16,31 @@ body {
     padding: 2rem;
 }
 
+/* Keep footnote markers from enlarging the line and pushing their text down */
+sup {
+    line-height: 0;
+}
+
 h1 {
     color: #333;
     margin-bottom: 1.5rem;
     font-weight: 600;
 }
 
+/* Everything in the header is sized in em off this one font size, so it scales as a unit */
 .header-section {
+    font-size: min(1.25vw, 16px);
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 4rem;
+    gap: 4em;
     margin-top: 1.5rem;
     margin-bottom: 1rem;
 }
 
 .header-portrait {
-    width: 180px;
-    height: 180px;
+    width: 11.25em;
+    height: 11.25em;
     object-fit: cover;
     object-position: top center;
 }
@@ -47,6 +54,54 @@ h1 {
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
+
+.chart-legend {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 6px 16px;
+    margin: 1rem 0 0.5rem;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: #333;
+}
+
+.chart-legend button {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 0;
+    border: none;
+    background: none;
+    font: inherit;
+    color: inherit;
+    white-space: nowrap;
+    cursor: pointer;
+}
+
+.chart-legend button.hidden {
+    color: #aaa;
+    text-decoration: line-through;
+}
+
+.chart-legend .swatch {
+    width: 12px;
+    height: 12px;
+    border-radius: 2px;
+}
+
+.chart-legend .line {
+    width: 16px;
+    border-top: 2px solid;
+}
+
+.chart-legend .dashed {
+    border-top-style: dashed;
+}
+
+.chart-legend .hidden span {
+    opacity: 0.3;
+}
 
 .chart-container {
     width: 100%;
@@ -150,7 +205,8 @@ h1 {
 
 .tms-title-engraved {
     font-family: 'Playfair Display', serif;
-    font-size: clamp(1.1rem, 4.5vw, 3rem);
+    font-size: 3em;
+    white-space: nowrap;
     text-transform: uppercase;
     color: #1a4d2e;
     text-align: center;
@@ -159,21 +215,21 @@ h1 {
         2px 2px 0px #133821,
         3px 3px 0px #fff,
         4px 4px 5px rgba(0,0,0,0.3);
-    letter-spacing: clamp(0px, 0.2vw, 2px);
+    letter-spacing: 0.04em;
     border-top: 2px solid #1a4d2e;
     border-bottom: 2px solid #1a4d2e;
     display: inline-block;
-    padding: 8px clamp(8px, 2vw, 30px);
+    padding: 0.17em 0.625em;
     margin: 15px 0;
     max-width: 100%;
 }
 
 .sub-text {
     font-family: sans-serif;
-    font-size: clamp(0.5rem, 1.3vw, 1rem);
     color: #555;
-    letter-spacing: clamp(0px, 0.3vw, 4px);
-    margin-top: 0.5rem;
+    letter-spacing: 0.25em;
+    white-space: nowrap;
+    margin-top: 0.5em;
     max-width: 100%;
 }
 
@@ -222,15 +278,14 @@ h1 {
     color: #444;
 }
 
-.chart-wrapper {
-    position: relative;
+.analysis-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
 }
 
 .analysis-toggle {
-    position: absolute;
-    top: 14px;
-    right: 0;
-    z-index: 5;
     display: inline-flex;
     border: 1.5px solid #1a4d2e;
     border-radius: 20px;
@@ -373,18 +428,6 @@ h1 {
         order: 1;
     }
     
-    .header-section {
-        gap: 1rem;
-    }
-    
-    .header-portrait {
-        width: 120px;
-        height: 120px;
-        max-width: 25vw;
-        height: auto;
-        aspect-ratio: 1;
-    }
-    
     /* Table horizontal scroll on mobile */
     .table-container {
         overflow-x: auto;
@@ -396,19 +439,26 @@ h1 {
     }
 }
 
+/* Below this the scaled header gets too small; drop the portraits and let the text fill the width */
+@media (max-width: 800px) {
+    .header-portrait {
+        display: none;
+    }
+
+    .tms-title-engraved {
+        font-size: min(7vw, 3rem);
+        padding: 0.25em 0.45em;
+    }
+
+    .sub-text {
+        font-size: min(2.9vw, 1rem);
+        letter-spacing: 0.05em;
+    }
+}
+
 @media (max-width: 600px) {
     body {
         padding: 1rem;
-    }
-
-    .header-portrait {
-        width: 70px;
-        max-width: 22vw;
-    }
-
-    .header-section {
-        gap: 0.5rem;
-        flex-wrap: nowrap;
     }
 
     .chart-container {
@@ -418,6 +468,31 @@ h1 {
 
     #chart {
         height: 350px;
+    }
+
+    .chart-legend {
+        font-size: 0.75rem;
+        gap: 4px 12px;
+    }
+
+    /* Fit Component through TMS on screen; only the FRED column scrolls */
+    .money-supply-table {
+        min-width: 0;
+        width: max-content;
+    }
+
+    .money-supply-table th,
+    .money-supply-table td {
+        padding: 0.5rem 0.4rem;
+    }
+
+    .money-supply-table td:first-child {
+        width: 170px;
+        min-width: 170px;
+    }
+
+    .fred-id {
+        white-space: nowrap;
     }
 
     .analysis-section {

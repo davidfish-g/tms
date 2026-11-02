@@ -37,6 +37,36 @@ function createResetZoomButtonOptions() {
     };
 }
 
+// Legend rendered as HTML above the chart so it wraps like text on narrow screens
+function renderLegend(chart) {
+    let legend = chart.renderTo.previousElementSibling;
+    if (!legend || !legend.classList.contains("chart-legend")) {
+        legend = document.createElement("div");
+        legend.className = "chart-legend";
+        chart.renderTo.before(legend);
+    }
+    legend.innerHTML = "";
+
+    chart.series.forEach(series => {
+        const item = document.createElement("button");
+        const symbol = document.createElement("span");
+        if (series.type === "line") {
+            symbol.className = series.options.dashStyle ? "line dashed" : "line";
+            symbol.style.borderColor = series.color;
+        } else {
+            symbol.className = "swatch";
+            symbol.style.background = series.color;
+        }
+        item.append(symbol, series.name);
+        item.classList.toggle("hidden", !series.visible);
+        item.addEventListener("click", () => {
+            series.setVisible(!series.visible);
+            item.classList.toggle("hidden", !series.visible);
+        });
+        legend.appendChild(item);
+    });
+}
+
 async function fetchData() {
     const allIds = [...SERIES_IDS, ...OVERLAY_SERIES, CPI_SERIES, ...MVPY_SERIES];
     const responses = await Promise.all(
@@ -213,12 +243,11 @@ function renderChart(dates, values, overlayValues) {
             visible: index === 1,
             stacking: undefined,
             fillOpacity: 0,
-            marker: { enabled: false },
-            legendSymbol: "rectangle"
+            marker: { enabled: false }
         });
     });
 
-    Highcharts.stockChart("chart", {
+    const chart = Highcharts.stockChart("chart", {
         chart: {
             type: "area",
             zoomType: "x",
@@ -231,21 +260,13 @@ function renderChart(dates, values, overlayValues) {
         subtitle: {
             text: "Click and Drag to Zoom",
             align: "right",
-            y: 48,
             style: {
                 fontSize: "12px",
                 color: "#888"
             }
         },
         legend: {
-            enabled: true,
-            align: "center",
-            verticalAlign: "top",
-            layout: "horizontal",
-            itemStyle: {
-                fontWeight: "600",
-                color: "#333"
-            }
+            enabled: false
         },
         responsive: {
             rules: [{
@@ -262,13 +283,10 @@ function renderChart(dates, values, overlayValues) {
                     maxWidth: 600
                 },
                 chartOptions: {
-                    legend: {
-                        itemStyle: {
-                            fontSize: "10px"
-                        },
-                        itemDistance: 8
-                    },
                     yAxis: {
+                        // Stop at the data instead of rounding up to the next tick (40k), which left the top half empty
+                        endOnTick: false,
+                        showLastLabel: true,
                         labels: {
                             formatter: function() {
                                 // Compact format: 20k instead of 20,000
@@ -391,6 +409,7 @@ function renderChart(dates, values, overlayValues) {
             enabled: false
         }
     });
+    renderLegend(chart);
 }
 
 function buildQuarterlyData(dates, tmsValues, m2Data, gdpData, rgdpData, cpiData) {
@@ -548,13 +567,7 @@ function renderAnalysisSection(dates, tmsValues, m2Data, gdpData, rgdpData, cpiD
                 resetZoomButton: createResetZoomButtonOptions()
             },
             title: { text: null },
-            legend: {
-                enabled: true,
-                align: "center",
-                verticalAlign: "top",
-                layout: "horizontal",
-                itemStyle: { fontWeight: "600", color: "#333" }
-            },
+            legend: { enabled: false },
             xAxis: {
                 type: "datetime",
                 gridLineWidth: 0,
@@ -591,6 +604,7 @@ function renderAnalysisSection(dates, tmsValues, m2Data, gdpData, rgdpData, cpiD
             accessibility: { enabled: false },
             exporting: { enabled: false }
         });
+        renderLegend(decompChart);
     }
 
     // Price level chart with ratio annotation
@@ -658,13 +672,7 @@ function renderAnalysisSection(dates, tmsValues, m2Data, gdpData, rgdpData, cpiD
             }
         },
         title: { text: null },
-        legend: {
-            enabled: true,
-            align: "center",
-            verticalAlign: "top",
-            layout: "horizontal",
-            itemStyle: { fontWeight: "600", color: "#333" }
-        },
+        legend: { enabled: false },
         xAxis: {
             type: "datetime",
             gridLineWidth: 0,
@@ -720,6 +728,7 @@ function renderAnalysisSection(dates, tmsValues, m2Data, gdpData, rgdpData, cpiD
         accessibility: { enabled: false },
         exporting: { enabled: false }
     });
+    renderLegend(priceChart);
 
     updateDecomp();
 
