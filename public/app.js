@@ -5,7 +5,7 @@ const SERIES_CONFIG = {
     SAVINGNS:         { convertFromMillions: false },
     OCDNS:            { convertFromMillions: false },
     WTREGEN:          { convertFromMillions: true },
-    GDBFRW:           { convertFromMillions: true },
+    GDBFRW:           { convertFromMillions: false },
     BOGZ1FL763123005Q: { convertFromMillions: true },
     WDFOL:            { convertFromMillions: true },
     DDDFOINS:         { convertFromMillions: false },
@@ -66,7 +66,8 @@ function transformData(fredData) {
 
     const lookups = {};
     SERIES_IDS.forEach((id, index) => {
-        const lookup = new Map();
+        // Weekly series have several observations per month; accumulate them so the month is an average
+        const sums = new Map();
         const needsConversion = SERIES_CONFIG[id].convertFromMillions;
 
         fredData[index].observations.forEach(obs => {
@@ -87,16 +88,28 @@ function transformData(fredData) {
             }
             
             const yearMonth = obs.date.slice(0, 7);
-            lookup.set(yearMonth, value);
+            const [sum, count] = sums.get(yearMonth) || [0, 0];
+            sums.set(yearMonth, [sum + value, count + 1]);
         });
+
+        const lookup = new Map();
+        sums.forEach(([sum, count], yearMonth) => lookup.set(yearMonth, sum / count));
         lookups[id] = lookup;
     });
 
-    // Forward-fill quarterly series to monthly
+    // Forward-fill quarterly series to monthly. FRED dates each end-of-quarter level at the
+    // quarter's first month, so move it to the quarter's last month first
     const quarterlySeries = ["BOGZ1FL763123005Q"];
     quarterlySeries.forEach(id => {
-        const lookup = lookups[id];
-        let lastValue = 0;
+        const lookup = new Map();
+        lookups[id].forEach((value, yearMonth) => {
+            const month = parseInt(yearMonth.slice(5, 7)) + 2;
+            lookup.set(yearMonth.slice(0, 5) + String(month).padStart(2, "0"), value);
+        });
+        lookups[id] = lookup;
+
+        // Months before the first quarter end take its value
+        let lastValue = lookup.values().next().value;
         dates.forEach(date => {
             if (lookup.has(date)) {
                 lastValue = lookup.get(date);
