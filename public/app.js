@@ -700,8 +700,8 @@ function renderAnalysisSection(dates, tmsValues, m2Data, gdpData, rgdpData, cpiD
             area: { marker: { enabled: false }, lineWidth: 2.5 },
         },
         series: [
-            { type: "area", name: "Actual CPI", data: actualSeries, color: "#b33000", fillOpacity: 0.2 },
-            { type: "area", name: "Without Money Creation", data: counterSeries, color: "#1a4d2e", fillOpacity: 0.2 }
+            { type: "area", name: "CPI", data: actualSeries, color: "#b33000", fillOpacity: 0.2 },
+            { type: "area", name: "Absent Money Creation", data: counterSeries, color: "#1a4d2e", fillOpacity: 0.2 }
         ],
         credits: { enabled: false },
         accessibility: { enabled: false },

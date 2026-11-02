@@ -3,13 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Live and historical True Money Supply data, the monetary measure developed by Murray Rothbard and Joseph Salerno.">
     <meta property="og:title" content="True Money Supply">
-    <meta property="og:url" content="https://truemoneysupply.org">
+    <meta property="og:description" content="Live and historical True Money Supply data, the monetary measure developed by Murray Rothbard and Joseph Salerno.">
+    <meta property="og:url" content="https://www.truemoneysupply.org">
+    <meta property="og:image" content="https://www.truemoneysupply.org/preview.png">
+    <meta name="twitter:card" content="summary_large_image">
     <title>True Money Supply</title>
     <link rel="icon" type="image/png" href="favicon.png">
     <link rel="stylesheet" href="styles.css">
-    <script src="/lib/highstock.js"></script>
-    
+    <script src="/lib/highstock.js" defer></script>
+    <script src="app.js" defer></script>
 </head>
 <body>
     <div class="header-section">
@@ -213,6 +217,5 @@
         <div id="cumulative-chart"></div>
     </div>
 
-    <script src="app.js"></script>
 </body>
 </html>
