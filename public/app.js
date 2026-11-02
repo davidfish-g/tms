@@ -270,13 +270,19 @@ function renderChart(dates, values, overlayValues) {
                         // Stop at the data instead of rounding up to the next tick (40k), which left the top half empty
                         endOnTick: false,
                         showLastLabel: true,
+                        // Labels carry the unit ($20T) and sit on their gridlines inside the plot,
+                        // so the axis takes no width; 0 is dropped since the data covers it
+                        title: {
+                            text: null
+                        },
+                        showFirstLabel: false,
                         labels: {
+                            align: "left",
+                            x: 0,
+                            y: -4,
+                            reserveSpace: false,
                             formatter: function() {
-                                // Compact format: 20k instead of 20,000
-                                if (this.value >= 1000) {
-                                    return (this.value / 1000) + "k";
-                                }
-                                return this.value;
+                                return "$" + (this.value / 1000) + "T";
                             }
                         }
                     }
@@ -741,7 +747,7 @@ async function main() {
             analysisRendered = true;
             renderAnalysisSection(dates, values, overlayData[1], gdpData, rgdpData, cpiData);
         }
-        section.scrollIntoView({ behavior: "smooth" });
+        section.querySelector(".section-title").scrollIntoView({ behavior: "smooth" });
     });
 }
 

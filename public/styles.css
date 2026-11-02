@@ -227,15 +227,21 @@ h1 {
 .sub-text {
     font-family: sans-serif;
     color: #555;
-    letter-spacing: 0.25em;
+    letter-spacing: 0.15em;
     white-space: nowrap;
     margin-top: 0.5em;
     max-width: 100%;
 }
 
+/* Full content width so the link lines up with the text's left edge */
+.charts-notice-row {
+    width: 100%;
+    max-width: 1200px;
+}
+
 .charts-notice {
     display: inline-block;
-    margin-top: 0.5rem;
+    margin-bottom: 1rem;
     font-size: 0.9rem;
     color: #1a4d2e;
     text-decoration: none;
@@ -262,6 +268,7 @@ h1 {
 }
 
 .section-title {
+    scroll-margin-top: 1rem;
     font-family: 'Playfair Display', serif;
     font-size: 1.75rem;
     color: #1a4d2e;
@@ -334,7 +341,7 @@ h1 {
     width: 100%;
     max-width: 1200px;
     margin-top: 60px;
-    padding-bottom: 40px;
+    padding-bottom: 1.5rem;
 }
 
 .explanation-section {
@@ -410,16 +417,12 @@ h1 {
     .footer-section {
         flex-direction: column;
         gap: 2rem;
-        padding-bottom: 1.5rem;
     }
     
-    /* Below the text, the links read as a footer: divide them off and give them room to tap */
+    /* Below the text on narrow screens; give the links room to tap */
     .sidebar-section {
         text-align: left;
-        margin-top: 1rem;
-        padding-top: 1.5rem;
-        border-top: 1px solid rgba(26, 77, 46, 0.25);
-        align-self: stretch;
+        margin-top: 0;
         order: 2;
         display: flex;
         gap: 3rem;
@@ -434,7 +437,7 @@ h1 {
         padding: 0.25rem 0;
     }
 
-    /* With the footer's bottom padding, matches the space above the links */
+    /* The footer's bottom padding already spaces the charts section off */
     .analysis-section {
         margin-top: 0;
     }
@@ -460,6 +463,10 @@ h1 {
 
 /* Below this the scaled header gets too small; drop the portraits and let the text fill the width */
 @media (max-width: 1000px) {
+    .header-section {
+        margin-top: 0;
+    }
+
     .header-portrait {
         display: none;
     }
@@ -470,8 +477,7 @@ h1 {
     }
 
     .sub-text {
-        font-size: min(2.9vw, 1rem);
-        letter-spacing: 0.05em;
+        font-size: min(2.55vw, 1rem);
     }
 }
 
