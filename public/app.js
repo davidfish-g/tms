@@ -260,35 +260,6 @@ function renderChart(dates, values, overlayValues) {
         legend: {
             enabled: false
         },
-        responsive: {
-            rules: [{
-                condition: {
-                    maxWidth: 600
-                },
-                chartOptions: {
-                    yAxis: {
-                        // Stop at the data instead of rounding up to the next tick (40k), which left the top half empty
-                        endOnTick: false,
-                        showLastLabel: true,
-                        // Labels carry the unit ($20T) and sit on their gridlines inside the plot,
-                        // so the axis takes no width; 0 is dropped since the data covers it
-                        title: {
-                            text: null
-                        },
-                        showFirstLabel: false,
-                        labels: {
-                            align: "left",
-                            x: 0,
-                            y: -4,
-                            reserveSpace: false,
-                            formatter: function() {
-                                return "$" + (this.value / 1000) + "T";
-                            }
-                        }
-                    }
-                }
-            }]
-        },
         rangeSelector: {
             enabled: false
         },
@@ -315,21 +286,27 @@ function renderChart(dates, values, overlayValues) {
                 }
             }
         },
+        // Labels carry the unit ($20T) and sit on their gridlines inside the plot, so the axis
+        // takes no width; 0 is dropped since the data covers it. Stopping at the data keeps
+        // short charts from rounding the axis up to the next wide tick and leaving the top empty.
         yAxis: {
             opposite: false,
             title: {
-                text: "Billions $",
-                style: {
-                    fontWeight: "600",
-                    color: "#444"
-                }
+                text: null
             },
+            endOnTick: false,
+            showFirstLabel: false,
+            showLastLabel: true,
             gridLineColor: "rgba(0, 0, 0, 0.06)",
             lineColor: "rgba(0, 0, 0, 0.1)",
             tickColor: "rgba(0, 0, 0, 0.2)",
             labels: {
+                align: "left",
+                x: 0,
+                y: -4,
+                reserveSpace: false,
                 formatter: function() {
-                    return Highcharts.numberFormat(this.value, 0, ".", ",");
+                    return "$" + (this.value / 1000) + "T";
                 },
                 style: {
                     fontWeight: "500",

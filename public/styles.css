@@ -370,10 +370,11 @@ h1 {
     color: #1a4d2e;
 }
 
+/* Lines "About TMS" up with the first line of the paragraph beside it */
 .sidebar-section {
     min-width: 150px;
     text-align: right;
-    margin-top: 3.5rem;
+    margin-top: 4.4375rem;
 }
 
 .sidebar-group h3 {
@@ -430,6 +431,11 @@ h1 {
 
     .sidebar-links li {
         margin-bottom: 0;
+    }
+
+    /* Same gap below the About links as between the text and them */
+    .charts-notice {
+        margin-top: 1rem;
     }
 
     .sidebar-links a {
