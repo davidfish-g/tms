@@ -278,35 +278,35 @@ h1 {
     color: #444;
 }
 
+/* Baseline alignment keeps the TMS/M2 text level with the title despite the underline below it */
 .analysis-header {
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: baseline;
     gap: 1rem;
 }
 
 .analysis-toggle {
     display: inline-flex;
-    border: 1.5px solid #1a4d2e;
-    border-radius: 20px;
-    overflow: hidden;
+    gap: 1.1rem;
 }
 
 .analysis-toggle-btn {
-    padding: 0.2rem 0.85rem;
+    padding: 0 0 2px;
     border: none;
-    background: transparent;
-    color: #1a4d2e;
+    border-bottom: 2px solid transparent;
+    background: none;
+    color: #888;
     font-weight: 600;
-    font-size: 0.75rem;
-    letter-spacing: 0.03em;
+    font-size: 0.85rem;
+    letter-spacing: 0.04em;
     cursor: pointer;
-    transition: all 0.15s;
+    transition: color 0.15s, border-color 0.15s;
 }
 
 .analysis-toggle-btn.active {
-    background: #1a4d2e;
-    color: white;
+    color: #1a4d2e;
+    border-bottom-color: #1a4d2e;
 }
 
 .analysis-subtitle {
@@ -410,6 +410,7 @@ h1 {
     .footer-section {
         flex-direction: column;
         gap: 2rem;
+        padding-bottom: 1.5rem;
     }
     
     /* Below the text, the links read as a footer: divide them off and give them room to tap */
@@ -424,9 +425,18 @@ h1 {
         gap: 3rem;
     }
 
+    .sidebar-links li {
+        margin-bottom: 0;
+    }
+
     .sidebar-links a {
         display: inline-block;
         padding: 0.25rem 0;
+    }
+
+    /* With the footer's bottom padding, matches the space above the links */
+    .analysis-section {
+        margin-top: 0;
     }
     
     .sidebar-group:not(:first-child) h3 {
@@ -449,7 +459,7 @@ h1 {
 }
 
 /* Below this the scaled header gets too small; drop the portraits and let the text fill the width */
-@media (max-width: 800px) {
+@media (max-width: 1000px) {
     .header-portrait {
         display: none;
     }
@@ -502,10 +512,6 @@ h1 {
 
     .fred-id {
         white-space: nowrap;
-    }
-
-    .analysis-section {
-        margin-top: 30px;
     }
 
     #growth-chart {

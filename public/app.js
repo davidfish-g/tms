@@ -257,28 +257,11 @@ function renderChart(dates, values, overlayValues) {
         title: {
             text: null
         },
-        subtitle: {
-            text: "Click and Drag to Zoom",
-            align: "right",
-            style: {
-                fontSize: "12px",
-                color: "#888"
-            }
-        },
         legend: {
             enabled: false
         },
         responsive: {
             rules: [{
-                condition: {
-                    maxWidth: 1050
-                },
-                chartOptions: {
-                    subtitle: {
-                        text: null
-                    }
-                }
-            }, {
                 condition: {
                     maxWidth: 600
                 },
