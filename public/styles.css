@@ -412,12 +412,21 @@ h1 {
         gap: 2rem;
     }
     
+    /* Below the text, the links read as a footer: divide them off and give them room to tap */
     .sidebar-section {
         text-align: left;
         margin-top: 1rem;
+        padding-top: 1.5rem;
+        border-top: 1px solid rgba(26, 77, 46, 0.25);
+        align-self: stretch;
         order: 2;
         display: flex;
         gap: 3rem;
+    }
+
+    .sidebar-links a {
+        display: inline-block;
+        padding: 0.25rem 0;
     }
     
     .sidebar-group:not(:first-child) h3 {
@@ -508,7 +517,6 @@ h1 {
     }
     
     .footer-section {
-        margin-top: 30px;
         gap: 1.5rem;
     }
     
