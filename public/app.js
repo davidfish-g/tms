@@ -467,7 +467,6 @@ function getDecomposition(qData, source) {
         const mGrowth = (m / mP - 1) * 100;
         const ngdpGrowth = (c.ngdp / p.ngdp - 1) * 100;
         const rgdpGrowth = (c.rgdp / p.rgdp - 1) * 100;
-        const cpiGrowth = (c.cpi / p.cpi - 1) * 100;
 
         // MV = PQ decomposition: %ΔM = %ΔQ + %ΔP + (-%ΔV)
         results.push({
@@ -475,8 +474,7 @@ function getDecomposition(qData, source) {
             moneyGrowth: mGrowth,
             rgdpGrowth: rgdpGrowth,                   // %ΔQ — absorbed by real growth
             velocityAbsorption: mGrowth - ngdpGrowth,  // -%ΔV — absorbed by velocity decline
-            inflation: ngdpGrowth - rgdpGrowth,         // %ΔP — GDP deflator (what's left)
-            cpiGrowth: cpiGrowth                        // actual CPI for comparison
+            inflation: ngdpGrowth - rgdpGrowth          // %ΔP — GDP deflator (what's left)
         });
     }
     return results;
